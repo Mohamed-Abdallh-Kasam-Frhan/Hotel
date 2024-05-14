@@ -1,0 +1,449 @@
+
+
+import java.util.Scanner ;
+
+class customer 		{
+
+String Name , 
+phoneNumber ;
+
+int period,
+personalID,
+numberPerson,
+cost2 ;	
+										} ;		
+
+
+public class Main {
+static Scanner in =new Scanner (System.in );
+
+static int num_floor = 10, 
+num_room = 8, 
+chose1, chose2, chose3,  
+chose4, chose5,
+cost = 10, 
+cost1,
+ Chosen_floor,  
+ Chosen_room , 
+num_room1, num_floor1,
+  back, PayAccount,
+  i , j , 
+  c = 0;
+ 
+ 
+static customer personData [][] = 
+new customer 
+[ num_floor ] [ num_room ];
+
+static int TotalCost [][] = new int 
+[ num_floor ] [ num_room ];
+
+static String hotel [][] = new String 
+[ num_floor ] [ num_room ];
+
+static String Floors [] = new String [num_floor ];
+
+static int Cost [][] = new int [num_floor][num_room];
+
+
+public static void main(String[] args) {
+  
+for( i = 0; i<num_floor ;i++)
+for( j = 0; j<num_room ;j++) {
+
+Floors [ i ] = "floor " +(i+1) +" :";
+hotel [i][j] = "Null";
+
+Cost [i] [num_room - num_room] = cost;
+
+Cost[ i ][ j ] = cost + 2;
+
+Cost[ i ][ num_room - 1] = cost + 5;
+Cost [num_floor - 1][ j ] = cost +10;
+}
+
+System.out.println("Welcome to you Lashpon hotel Where you can find rest and relaxation  :");
+sleep (2000);
+clean ();
+
+do{
+System.out.println ("To booking pass 1 :\nTo inquiry pass 2 : " + 
+" \nTo Pay account pass 3 :" + 
+"\nSetting pass 4 :" + 
+"\nTo Exit  pass  0 :\n");	
+chose1= in.nextInt ();
+
+switch (chose1){
+
+case 1:    // للحجز
+clean();
+System.out.println ("Choose the floor number :");
+
+for (i = 0; i < num_floor ;i++)
+System.out.println (Floors [ i ] );
+
+System.out.println ("\nTo Exit pass 0 :");
+ Chosen_floor = in.nextInt ();
+
+if (Chosen_floor == 0)	
+clean();
+
+else if (Chosen_floor > num_floor)	{
+System.out.println("It is not an option &");
+sleep(2000);
+clean();				}
+
+else		{
+
+print_offers ( hotel, Floors , Cost , Chosen_floor);	
+
+booken ( hotel , Cost ); 	}
+break ;				
+
+case 2://inquiry 
+clean();
+
+System.out.println (
+ "General inquiry pass 1 :" + 
+ "\nSpeical inquiry pass 2 :" + 
+ "\nTo Exit pass 0 :");
+chose2 = in.nextInt ();
+clean();
+
+switch (chose2){
+case 1://general inquiry 
+clean ();	
+
+print_list ( hotel, Floors, Cost );
+
+System.out.println("\n\nTo Exit pass any number :");
+back = in.nextInt();
+clean();
+break ;		
+
+	
+case 2://speical inquiry
+System.out.println ("Choose floor number :");
+
+for (i = 0; i<num_floor ;i++)
+System.out.println (Floors[i])	;
+
+Chosen_floor = in.nextInt ();
+
+print_offers ( hotel , Floors , Cost, Chosen_floor);	
+
+printData(hotel);		
+break ;
+
+case 0://To back
+break ;
+
+default :	{
+System.out.println ("Choose one of the option\n :");
+continue;		}
+		}//end switch inquiry 				
+break ;
+
+case 3 ://pay account 
+account (TotalCost, hotel );
+break ;
+
+
+case 4:   //setting
+clean();
+System.out.println ("Setting number of floors and rooms pass\t 1 :" + 
+"\nSetting prices  of rooms pass\t 2 :"+  "\nTo Exit pass   0 :");
+
+chose3 = in.nextInt ();
+switch ( chose3 )	{
+   
+case 1:
+System.out.print("Set number of floors :");
+num_floor1= in.nextInt ();
+num_floor = num_floor1;
+
+System. out.print("Set number of rooms :");
+num_room1= in.nextInt ();
+num_room = num_room1;
+break ;
+ 
+ case 2:
+ do{
+ 
+   System.out.print("Enter number of floor :");
+ Chosen_floor = in.nextInt ();
+
+ if (Chosen_floor > num_floor){
+ System.out.println ("found only "+num_floor + "floor :");
+ continue;	}
+
+else if (num_floor == 0)
+break ;
+
+else {
+System.out.print ("Enter number of room :");
+ Chosen_room  =in.nextInt ();
+
+System.out.println ("The recently cost is  "+Cost [Chosen_floor-1]
+		[Chosen_room -1]);
+
+ System.out.print("Enter the new price :");
+cost1 = in.nextInt ();
+
+Cost [Chosen_floor-1] 
+	[ Chosen_room -1]   =  cost1;		}
+
+}	while (Chosen_floor != 0 && Chosen_room != 0);
+ break ;
+
+case 0:  //Exit
+clean ();
+break ;
+
+default :
+System.out.println ("Choose number from 0  to 2 :");
+continue;
+}//end switch setting
+
+
+
+case 0:
+clean ();
+break ;								
+
+default :
+System.out.println ("choose from 0 to 3 :");
+continue ;
+}//end main switch 
+c++;//counter 		
+}while (chose1 != 0);//end main loop											
+}//end main function 
+
+
+
+
+
+// The functions of the Projecto
+
+
+//First
+static void clean()	{//function delet
+System.out.print("\033[H\033[2J");
+System.out.flush();	}	
+
+ 
+
+//Second
+static void print_offers (String hotel [][],  String Floors[],   int Cost[][], 	
+int Chosen_floor ) 	{
+clean();
+
+System.out.println(Floors
+[Chosen_floor-1]   +"\t Exit  0 :");
+
+System.out.println ("_". repeat(25));
+
+for  (i = 0; i<num_room ;i++) 
+System. out.println("  "+ (i+1) +"   "+
+hotel [ Chosen_floor - 1 ][ i ] +"  |  price  "+ 
+Cost [Chosen_floor - 1][ i ]+"$" ); 
+
+System.out.println ("_".repeat (25));
+			}
+
+
+
+//Third
+static String [][] booken (String hotel [][], 	int Cost [][] )  {
+
+for(i = 0; i<num_floor * num_room ;i++){
+
+System.out.println ("\nEnter room number from the available options :");
+  Chosen_room = in.nextInt ();
+ 
+if( Chosen_room == 0)	{
+ clean();
+ break ;		}
+ 
+else if (Chosen_room > num_room) {
+System.out.println("\nIt is not an option :");
+sleep(2000);
+clean();						
+break;		}
+  
+else     
+ if (hotel [Chosen_floor-1]
+ [Chosen_room -1] == "Null")  {
+
+System.out.println("The cost of room is "+  Cost[Chosen_floor-1]
+		[ Chosen_room -1] + "$" );
+
+Data (Chosen_floor, Chosen_room );
+hotel[Chosen_floor-1]
+[ Chosen_room -1] = "book";
+
+System.out.println("\nThe room has been booked successfully 🏳️🏳️⛱️⛱️");
+ 
+ System.out.println("\nTo Exit pass 0 :\nTo continue pass any number :");}
+ back = in.nextInt ();
+
+  if (back == 0)	{	
+clean(); 	
+break; 		}					
+
+else 
+ continue;			}
+	return hotel ;		}														
+
+
+// fourth
+public static void sleep(int milli) {//function stop screen
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException enav) {
+            enav.printStackTrace();
+        }		}
+    
+
+static customer [][] Data (int Chosen_floor , int  Chosen_room ){
+	in.nextLine();	
+
+personData [Chosen_floor-1][ Chosen_room -1] = new customer ();
+
+System.out.print("\nEnter the Name of the renter :_\t");
+personData [Chosen_floor-1]
+[ Chosen_room -1].Name = in.nextLine ();
+
+System.out.print ("How many people with him ? :_\t");
+personData [ Chosen_floor-1 ]
+[ Chosen_room -1].numberPerson = in.nextInt ();
+
+System.out.print ("Enter the Personal ID : _\t");
+personData [Chosen_floor-1] 
+[ Chosen_room -1] . personalID = in.nextInt ();
+
+
+System.out.print ("Enter the number of phone :_\t");
+personData [Chosen_floor-1 ]
+[ Chosen_room -1].phoneNumber = in.next();
+
+System.out.print ("How many days of booking :_\t");
+personData [ Chosen_floor-1 ]
+[ Chosen_room -1 ].period = in.nextInt();
+
+TotalCost [ Chosen_floor-1]
+[Chosen_room-1]	=
+personData [ Chosen_floor-1]
+[ Chosen_room -1].period  *
+Cost[Chosen_floor-1][ Chosen_room -1];
+return personData ;
+	}	
+
+// fifth
+static void printData(String hotel [][] ) {
+ 
+ T : { for(i = 0; i<num_floor*num_room ;i++){
+
+System.out.println ("\nEnter one of the available options :" );
+  Chosen_room = in.nextInt ();
+
+if ( Chosen_room == 0)	{
+ clean ();
+ break ;			}
+
+  else   
+if (hotel [Chosen_floor-1][ Chosen_room -1] == "book") {
+
+System.out.println ("person Name : _  "+personData[Chosen_floor-1] [ Chosen_room -1].Name+
+
+"\nThe Personal ID:_  "+personData [Chosen_floor-1][ Chosen_room -1].personalID+
+
+"\nNumber of persons:_ "+personData[Chosen_floor-1][ Chosen_room -1].numberPerson+
+
+"\nperiod to booking :_ "+personData [Chosen_floor-1][ Chosen_room -1].period+" day "+
+
+"\nNumber of phone:_ "+personData [Chosen_floor-1][ Chosen_room -1].phoneNumber);
+
+System.out.println ("The Total Cost is :_"+TotalCost[Chosen_floor-1][ Chosen_room -1]+"$");
+		}
+
+
+else 
+System.out.println ("The room number "+  Chosen_room  + " is Null :");				
+
+System.out.println("\nTo continue pass any number :" + 
+" \nTo Exit pass 0 :" );
+chose4 = in.nextInt();	
+
+if (chose4 == 0)	{
+clean ();
+break T;			}
+
+else
+continue;	
+}  }		}	
+
+
+
+// sexth
+static int [][] account (int [][]TotalCost , String hotel [][] )   {
+
+do {
+
+System.out.print ("\nEnter floor number : ") ;
+ Chosen_floor = in.nextInt ();
+
+  System.out.print("Enter room number :  ");
+  Chosen_room = in.nextInt ();
+
+if (Chosen_floor < num_floor  && Chosen_floor > 0 && 
+Chosen_room < num_room    && Chosen_room > 0 ) {
+
+if ( hotel [Chosen_floor-1]
+[ Chosen_room -1] == "book"  ) {
+	
+System.out.println ("The Person Name is " + personData[Chosen_floor-1][ Chosen_room -1]. Name+
+
+"\n Personal ID is :" + personData [Chosen_floor-1] [Chosen_room -1].personalID+
+
+"\nThe Total Cost remaining is :"+TotalCost [Chosen_floor-1]
+ [ Chosen_room -1 ] + " $"+
+
+"\n\nEnter the account :");
+PayAccount = in.nextInt ();
+TotalCost [Chosen_floor-1]
+[ Chosen_room -1] -= PayAccount ;
+}
+
+else if (hotel [Chosen_floor-1]
+[ Chosen_room -1] == " Null " )
+System.out.println ("The room is null ");
+		}
+
+else 
+System.out.println("This room can not be found :");		
+   						
+System.out.println("\nTo continue pass any number :\n To exit pass 0 :\n"); 
+chose5 = in.nextInt();  
+   	
+  }  while ( chose5 != 0);			
+ 
+     return TotalCost ;													}						
+   
+
+// Seventh
+static void  print_list  (String hotel [][],   String Floors[],  int Cost[][] ) {
+
+for(i = 0; i<num_floor ;i++)	{
+System.out.println ("\n"+Floors[i] );
+System.out.println ("_". repeat(25));
+
+for(j = 0; j<num_room ;j++) 
+System. out.println("  "+ (j+1) +"   "+
+hotel [ i ][ j ] +"  |  price  "+ 
+Cost [i][ j ]+"$" ); 
+
+System.out.println ("_".repeat (25));	
+}			}   				
+
+}//end main class
